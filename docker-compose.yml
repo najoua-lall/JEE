@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: gestion_stages_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: gestion_stages_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - gestion_stages_data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  gestion_stages_data:

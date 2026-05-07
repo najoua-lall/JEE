@@ -1,0 +1,21 @@
+import React from "react";
+import { Navigate } from "react-router-dom";
+import AuthService from "../services/auth.service";
+
+/**
+ * AdminRoute — only users with ROLE_ADMIN can access.
+ * Non-authenticated users → /login
+ * Authenticated non-admins → /offres
+ */
+const AdminRoute = ({ children }) => {
+  const user = AuthService.getCurrentUser();
+
+  if (!user) return <Navigate to="/login" replace />;
+
+  const isAdmin = user.roles?.some(r => r === "ROLE_ADMIN");
+  if (!isAdmin) return <Navigate to="/offres" replace />;
+
+  return children;
+};
+
+export default AdminRoute;
